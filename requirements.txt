@@ -1,0 +1,5 @@
+
+geopandas==1.0.1
+gpxpy==1.6.2
+fit-tool==0.9.13
+pyhigh==0.0.6
