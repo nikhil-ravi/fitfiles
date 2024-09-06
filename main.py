@@ -1,17 +1,18 @@
-import os
 import datetime
-from flask import (
-    Flask,
-    request,
-    redirect,
-    send_file,
-    render_template,
-    after_this_request,
-)
-import gpxpy
+import os
+
 import geopandas as gpd
+import gpxpy
 from fit_tool.fit_file import FitFile
 from fit_tool.profile.messages.record_message import RecordMessage
+from flask import (
+    Flask,
+    after_this_request,
+    redirect,
+    render_template,
+    request,
+    send_file,
+)
 from pyhigh import get_elevation
 
 app = Flask(__name__)
@@ -27,7 +28,7 @@ os.makedirs(COURSES_FOLDER, exist_ok=True)
 def upload_form():
     # Get the list of pre-uploaded GPX courses from the courses directory
     pre_uploaded_courses = [f for f in os.listdir(COURSES_FOLDER) if f.endswith(".gpx")]
-    return render_template("upload.html", courses=pre_uploaded_courses)
+    return render_template("index.html", courses=pre_uploaded_courses)
 
 
 @app.route("/upload", methods=["POST"])
