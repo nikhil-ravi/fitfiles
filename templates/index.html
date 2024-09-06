@@ -10,16 +10,7 @@
     <form method="post" enctype="multipart/form-data" action="/upload">
         <label for="fit_file">FIT file:</label>
         <input type="file" id="fit_file" name="fit_file" accept=".fit"><br><br>
-
-        <h2>Choose a GPX course:</h2>
-        <select name="selected_course">
-            <option value="">Select a pre-uploaded course</option>
-            {% for course in courses %}
-                <option value="{{ course }}">{{ course }}</option>
-            {% endfor %}
-        </select><br><br>
-
-        <h2>Or upload your own GPX file:</h2>
+        <label for="fit_file">GPX file:</label>
         <input type="file" id="gpx_file" name="gpx_file" accept=".gpx"><br><br>
 
         <input type="submit" value="Submit">

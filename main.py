@@ -18,17 +18,13 @@ from pyhigh import get_elevation
 app = Flask(__name__)
 UPLOAD_FOLDER = "./uploads"
 PROCESSED_FOLDER = "./processed"
-COURSES_FOLDER = "./courses"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
-os.makedirs(COURSES_FOLDER, exist_ok=True)
 
 
 @app.route("/")
 def upload_form():
-    # Get the list of pre-uploaded GPX courses from the courses directory
-    pre_uploaded_courses = [f for f in os.listdir(COURSES_FOLDER) if f.endswith(".gpx")]
-    return render_template("index.html", courses=pre_uploaded_courses)
+    return render_template("index.html")
 
 
 @app.route("/upload", methods=["POST"])
@@ -38,7 +34,6 @@ def upload_file():
 
     fit_file = request.files["fit_file"]
     gpx_file = request.files["gpx_file"]
-    selected_course = request.form.get("selected_course")
 
     if fit_file.filename == "":
         return redirect(request.url)
@@ -51,8 +46,6 @@ def upload_file():
     if gpx_file and gpx_file.filename != "":
         gpx_file_path = os.path.join(UPLOAD_FOLDER, gpx_file.filename)
         gpx_file.save(gpx_file_path)
-    elif selected_course:
-        gpx_file_path = os.path.join(COURSES_FOLDER, selected_course)
     else:
         return redirect(request.url)
 
